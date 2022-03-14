@@ -83,6 +83,7 @@ int main(int argc, char** argv) {
   //***********Begin get input*********************//
  
   //set parameters for input system
+  G4String inputfile;
   std::string outputfile;
   uint verbosity=0;
   uint quietness=0;
@@ -94,6 +95,7 @@ int main(int argc, char** argv) {
   const struct option longopts[] =
   {
     {"customgen",     no_argument,  0, 'c'},
+    {"infile",     required_argument,  0, 'i'},
     {"outfile",     required_argument,  0, 'o'},
     {"only-ncap",     no_argument,  0, 'p'},
     {"quiet",     optional_argument,  0, 'q'},
@@ -108,16 +110,21 @@ int main(int argc, char** argv) {
 
   //turn off getopt error message
   opterr=1; 
-
+  bool infile = false;
   while(iarg != -1)
   {
-    iarg = getopt_long(argc, argv, "+co:pq::sv::V", longopts, &index);
+    iarg = getopt_long(argc, argv, "+co:i:pq::sv::V", longopts, &index);
 
     switch (iarg)
     {
 
       case 'c':
         customgen = true;
+        break;
+
+      case 'i':
+        inputfile = optarg;
+        infile = true;
         break;
 
       case 'o':
@@ -178,6 +185,10 @@ int main(int argc, char** argv) {
     std::cerr << "eventAlignCheck: ERROR! no file supplied" << std::endl;
     exit(1);
   }
+  if(customgen && !infile) {
+    std::cout<<"Please provide input file if customgen flag is ON. Exiting..."<<std::endl;
+    exit(0);
+  }
   std::vector<std::string> filenames;
   for(int i = optind; i < argc; i++){
     if(verbosity>=1){
@@ -187,6 +198,8 @@ int main(int argc, char** argv) {
     filenames.push_back(argv[i]);
   }
 
+  // std::cout<<"Input file = "<<inputfile<<std::endl;
+  // exit(0);
   //***********End get input*********************//
 
   for(int i=0;i<filenames.size();i++){
@@ -215,7 +228,8 @@ int main(int argc, char** argv) {
 
   // UserAction Classes============
   // event generator
-  k100_PrimaryGeneratorAction* myPrimaryEventGenerator=new k100_PrimaryGeneratorAction(customgen); //sourceGun is the custom generator  
+  
+  k100_PrimaryGeneratorAction* myPrimaryEventGenerator=new k100_PrimaryGeneratorAction(customgen,inputfile); //sourceGun is the custom generator  
   runManager->SetUserAction(myPrimaryEventGenerator);
 
   //run action

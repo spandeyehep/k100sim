@@ -23,7 +23,7 @@ k100_nrCascadeTree::k100_nrCascadeTree(G4String filename)
 {
   inFile = TFile::Open(filename);
   if(!inFile) {
-    G4cout<<"Could not find file: "<<inFile<<G4endl;
+    G4cout<<"Could not find file: "<<filename<<G4endl;
     exit(0);
   }
   tree = (TTree*)inFile->Get("combined");

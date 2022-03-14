@@ -40,7 +40,7 @@ class k100_PrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
 
 public:
 
-  k100_PrimaryGeneratorAction(G4bool useGun=false);
+  k100_PrimaryGeneratorAction(G4bool useGun=false, G4String infile="none");
   ~k100_PrimaryGeneratorAction();
 
 public:
@@ -61,6 +61,7 @@ private:
 
   //useful variables
   G4bool                        sourceGun; // false for GeneralParticleSource
+  G4String InFile;
 
 };
 

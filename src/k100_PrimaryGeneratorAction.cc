@@ -31,7 +31,7 @@
 #include "k100_EventInfo.hh"
 
 
-k100_PrimaryGeneratorAction::k100_PrimaryGeneratorAction(G4bool useGun):
+k100_PrimaryGeneratorAction::k100_PrimaryGeneratorAction(G4bool useGun, G4String InFile):
 sourceGun(useGun)
 {
   
@@ -53,9 +53,14 @@ sourceGun(useGun)
   xrot->setRows(row1,row2,row3);
   
   if(useGun) {
-    std::cout<<"YOLO ============ Can I do it??  ========="<<std::endl;
-    std::cout<<"YOLO ============ I am doing it  ========="<<std::endl;
-    nrCascadeTree = new k100_nrCascadeTree("/Users/shubhampandey/work/k100sim_analysis/combine_k100sim_nrCascade/python_code/check.root");
+    if(InFile == "none") {
+      std::cout<<"No input file provided for custom particle gun. Exiting"<<std::endl;
+      exit(0);
+    }
+    // std::cout<<"YOLO ============ Can I do it??  ========="<<std::endl;
+    // std::cout<<"YOLO ============ I am doing it  ========="<<std::endl;
+    // nrCascadeTree = new k100_nrCascadeTree("/Users/shubhampandey/work/k100sim_analysis/combine_k100sim_nrCascade/python_code/check.root");
+    nrCascadeTree = new k100_nrCascadeTree(InFile);
     if(!nrCascadeTree) {
       std::cout<<"nrCascadeTree not loaded. Exiting."<<std::endl;
       exit(0);
