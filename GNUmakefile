@@ -1,22 +1,26 @@
-# $Id: GNUmakefile 68058 2013-03-13 14:47:43Z gcosmo $
 # --------------------------------------------------------------
-# GNUmakefile for examples module.  Gabriele Cosmo, 06/04/98.
+# GNUmakefile for physics list user.  
+# JPW. Fri Jul 25 10:39:58 CEST 2003
 # --------------------------------------------------------------
 
-name := exampleB1
+name := k100
 G4TARGET := $(name)
-G4EXLIB := true
+G4EXLIB := true 
 
 ifndef G4INSTALL
   G4INSTALL = ../../..
 endif
 
+#ifdef G4EXPAT_PATH
+#  EXTRALIBS += -L$(G4EXPAT_PATH)
+#endif
+
+include $(G4INSTALL)/config/architecture.gmk
+
 .PHONY: all
 all: lib bin
 
 include $(G4INSTALL)/config/binmake.gmk
-
-visclean:
-	rm -f g4*.prim g4*.eps g4*.wrl
-	rm -f .DAWN_*
+#CXXFLAGS_WITHOUT_O := $(filter-out -O% , $(CXXFLAGS))
+#CXXFLAGS_WITHOUT_O := $(filter-out +O% , $(CXXFLAGS_WITHOUT_O))
 

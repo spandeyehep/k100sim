@@ -1,0 +1,21 @@
+#/vis/viewer/addCutawayPlane 0 0 0 m 0 1 0
+
+#/gps/particle neutron
+/gps/particle gamma 
+/gps/position 1.0 0.0 0.0 m
+/gps/pos/type Point
+/gps/ang/type beam1d
+/gps/direction -1 0 0
+/gps/ene/type Arb 
+/gps/hist/type arb 
+/gps/hist/file sources/pube_skim.dat 
+/gps/hist/inter Lin
+
+
+#/CDMS/detector/activate Shields
+#/CDMS/detector/activate IceBox
+/CDMS/PuBe/doPuBeGammas false
+
+/CDMS/updateGeometry
+
+/run/beamOn 10
