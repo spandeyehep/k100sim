@@ -59,6 +59,7 @@ void print_usage (FILE* stream, int exit_code)
   fprintf (stream,
 	   //"\n"
            "  -c, --customgen                    use custom particle generator \n"
+           "  -i, --infile       <filename>      name the input nrCasacadeSim file \n"
            "  -o, --outfile       <filename>     name the output file \n"
            "  -p, --only-ncap                    restrict event output to those including ncap \n"
            "  -q, --quiet         <level>        quiet printing \n"
