@@ -133,11 +133,12 @@ void k100_NaIParametrization::ComputeTransformation(const G4int copyNo,
 	}
 	else if(faxis == 1) {
 		//Zposition = 0; 
-		Xposition = 0. ; // tile placement --> | T3 | T1 | T2 |
+		Xposition = 0. ; // tile placement --> | T1 | T2 | T3 | ---> -Y axis direction
 		switch(copyNo) {
-			case 0: Xposition = 0; break;
-			case 1: Xposition = -1 * (fTileWidth + fInterTileGapsX); break;
-			case 2: Xposition = (fTileWidth + fInterTileGapsX); break;
+			case 0: Xposition = (fTileWidth + fInterTileGapsX); break;
+			case 1: Xposition = 0; break;
+			case 2: Xposition = -1 * (fTileWidth + fInterTileGapsX); break;
+									
 			default : G4Exception("ComputeTransformation","k100_NaIParametrization",FatalException,"Can not place more than 3 tiles at the bottom of fridge.");
 			break;
 		}
